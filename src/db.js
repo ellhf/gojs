@@ -34,6 +34,10 @@ GameMeta.init({
     type: DataTypes.STRING,
     allowNull: true,
   },
+  alias: {
+    type: DataTypes.STRING,
+    allowNull: true,
+  }
 }, {
   sequelize,
   modelName: 'game',
