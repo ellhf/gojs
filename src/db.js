@@ -153,15 +153,6 @@ export async function queryAllGameJSONs() {
 
 /**
  *
- * @param {string} id
- * @returns {Promise<boolean>}
- */
-export async function exist(id) {
-  return (await GameMeta.count({ where: { id } }) !== 0);
-}
-
-/**
- *
  * @param {any} game
  * @returns {Promise<{date: Date, price: number, id: string}>}
  */
@@ -190,12 +181,12 @@ export async function insertGame(game) {
  */
 export async function updateGame(game) {
   const { meta, discounts } = game;
-  if (!exist(meta.id)) {
-    insertGame(game);
-    return;
-  }
   const { base, plus } = discounts;
   const gameMeta = await GameMeta.findByPk(meta.id);
+  if (!gameMeta) {
+    await insertGame(game);
+    return;
+  }
   const discount = await Discount.findByPk(meta.id);
 
   const price = base?.finalPrice ?? game.meta.price ?? 0;
