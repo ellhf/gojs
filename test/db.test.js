@@ -27,7 +27,7 @@ describe('database', () => {
     })
   })
   describe('db.create', () => {
-    it('should insert a new record to games', () => {
+    it('should insert a new record to games.', () => {
       return db.insertGame(info)
         .then(async (game) => {
           assert.strictEqual(game.price, 9380);
