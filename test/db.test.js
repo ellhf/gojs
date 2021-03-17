@@ -27,7 +27,6 @@ describe('database', () => {
     })
   })
   describe('db.create', () => {
-    // 用旧的时间插入
     it('should insert a new record to games', () => {
       return db.insertGame(info)
         .then(async (game) => {
