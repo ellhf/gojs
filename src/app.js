@@ -9,17 +9,17 @@ const app = new Koa();
 
 const route = new Router();
 
-route.get('/', store({
+route.get('/api/go', store({
   key: 'games',
-  value: 'hello world',
+  value: 'hello games',
 }), send('games'));
 
-route.get('/api/games', store({
+route.get('/api/go/games', store({
   key: 'games',
   value: parsers.fetchAllGames,
 }), send('games'));
 
-route.get('/api/games/:id', store({
+route.get('/api/go/games/:id', store({
   key: 'id',
   value: parsers.fetchID,
 }), store({
@@ -28,7 +28,7 @@ route.get('/api/games/:id', store({
   nullHandling: (ctx) => ctx.throw(404, 'game information not found')
 }), send('game'));
 
-route.post('/api/games/:id', store({
+route.post('/api/go/games/:id', store({
   key: 'id',
   value: parsers.fetchID,
 }), (ctx, next) => {
