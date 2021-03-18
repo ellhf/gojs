@@ -237,17 +237,17 @@ export async function updateRecord(game) {
     return await insertRecord(game);
   }
   const lastRecordJSON = lastRecord.toJSON();
-  const isToday = lastRecordJSON['date'] === today;
+  // const isToday = lastRecordJSON['date'] === today;
   const isPrice = lastRecordJSON['price'] === price;
 
   // 首先判断价格，然后判断时间.
   if (isPrice) {
     return false;
-  } else if (isToday) {
+  }/*  else if (isToday) {
     // 更新
     lastRecord.setDataValue('price', price);
     return true;
-  } else {
+  } */ else {
     // 插入
     return await insertRecord(game);
   }

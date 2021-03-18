@@ -73,7 +73,7 @@ export async function fetchGame(id) {
  * @param {string} id
  */
 export async function updateByID(id) {
-  db.updateGame(await fetchGame(id));
+  await db.updateGame(await fetchGame(id));
 }
 
 export async function updateTask() {
