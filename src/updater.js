@@ -44,10 +44,12 @@ function parseGame(id, gameinfo) {
     const key = upSellService === "NONE" ? "base" : "plus";
 
     price = basePriceValue;
-    discounts[key] = {
-      finalPrice,
-      endTime: new Date(+endTime),
-    };
+    if (endTime !== null) {
+      discounts[key] = {
+        finalPrice,
+        endTime: new Date(+endTime),
+      };
+    }
   });
 
   // 元信息定义

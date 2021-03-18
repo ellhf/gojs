@@ -154,7 +154,6 @@ export async function queryAllGameJSONs() {
 /**
  *
  * @param {any} game
- * @returns {Promise<{date: Date, price: number, id: string}>}
  */
 export async function insertGame(game) {
   const { base, plus } = game.discounts;
@@ -167,17 +166,17 @@ export async function insertGame(game) {
     plusPrice: plus?.finalPrice,
     plusEndAt: plus?.endTime,
   });
-  return {
+  await insertRecord({
     id: game.meta.id,
     date: new Date(),
     price,
-  };
+  });
+  return game;
 }
 
 /**
  *
  * @param {any} game
- * @returns {Promise<{date: Date, price: number, id: string}>}
  */
 export async function updateGame(game) {
   const { meta, discounts } = game;
@@ -197,6 +196,8 @@ export async function updateGame(game) {
     });
 
   // 更新折扣信息
+  console.log('base', base);
+  console.log('plus', plus);
   discount.setDataValue('basePrice', base?.finalPrice)
   discount.setDataValue('baseEndAt', base?.endTime)
   discount.setDataValue('plusPrice', plus?.finalPrice)
@@ -204,12 +205,13 @@ export async function updateGame(game) {
 
   await gameMeta.save();
   await discount.save();
+  console.log(discount.toJSON());
 
-  return {
+  await updateRecord({
     id: meta.id,
     date: new Date(),
     price,
-  };
+  });
 }
 
 /**
