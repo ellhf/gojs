@@ -196,16 +196,13 @@ export async function updateGame(game) {
     });
 
   // 更新折扣信息
-  console.log('base', base);
-  console.log('plus', plus);
-  discount.setDataValue('basePrice', base?.finalPrice)
-  discount.setDataValue('baseEndAt', base?.endTime)
-  discount.setDataValue('plusPrice', plus?.finalPrice)
-  discount.setDataValue('plusEndAt', plus?.endTime)
+  discount.setDataValue('basePrice', base?.finalPrice ?? null)
+  discount.setDataValue('baseEndAt', base?.endTime ?? null)
+  discount.setDataValue('plusPrice', plus?.finalPrice ?? null)
+  discount.setDataValue('plusEndAt', plus?.endTime ?? null)
 
   await gameMeta.save();
   await discount.save();
-  console.log(discount.toJSON());
 
   await updateRecord({
     id: meta.id,
