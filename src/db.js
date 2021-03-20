@@ -1,10 +1,15 @@
 import sequelizePkg from 'sequelize';
 import moment from 'moment';
+import dotenv from 'dotenv';
+
+dotenv.config({
+  path: './.env'
+});
 
 const { Sequelize, Model, DataTypes } = sequelizePkg;
 
-export const sequelize = new Sequelize('gameon', 'root', 'zWe(80)E', {
-  host: '159.75.113.151',
+export const sequelize = new Sequelize('gameon', process.env.DB_USER, process.env.DB_PASSWORD, {
+  host: process.env.DB_HOST,
   dialect: 'mysql',
   logging: false,
 });
